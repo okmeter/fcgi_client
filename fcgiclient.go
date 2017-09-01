@@ -139,12 +139,20 @@ func Dial(network, address string) (fcgi *FCGIClient, err error) {
 		return
 	}
 
+	fcgi = NewClient(conn)
+
+	return
+}
+
+
+// Creates FCGIClient from existing connection.
+// It is useful when you need to use custom dialer.
+func NewClient(conn net.Conn) (fcgi *FCGIClient) {
 	fcgi = &FCGIClient{
 		rwc:       conn,
 		keepAlive: false,
 		reqId:     1,
 	}
-  
 	return
 }
 
@@ -159,11 +167,7 @@ func DialTimeout(network, address string, timeout time.Duration) (fcgi *FCGIClie
 		return
 	}
 
-	fcgi = &FCGIClient{
-		rwc:       conn,
-		keepAlive: false,
-		reqId:     1,
-	}
+	fcgi = NewClient(conn)
   
 	return
 }

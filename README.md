@@ -101,6 +101,9 @@ Connects to the fcgi responder at the specified network address. See func [net.D
     func DialTimeout(network, address string, timeout time.Duration) (fcgi *FCGIClient, err error)
 Connects to the fcgi responder at the specified network address with timeout. See func [net.DialTimeout](http://golang.org/pkg/net/#DialTimeout) for a description of the network, address and timeout parameters.
 
+#### func NewClient
+    func NewClient(conn net.Conn) (fcgi *FCGIClient)
+Creates FCGIClient from existing connection. It is useful when you need to use custom dialer.
 
 #### func (*FCGIClient) Get
     func (this *FCGIClient) Get(p map[string]string) (resp *http.Response, err error)
